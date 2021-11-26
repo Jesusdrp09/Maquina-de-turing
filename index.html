@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"/>
+<meta name="description" content="A finite state machine chart with editable and interactive features."/> 
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/estilos.css">
+<!-- Copyright 1998-2021 by Northwoods Software Corporation. -->
+<title class="lang">Autómata</title>
+</head>
+
+<body>   
+  <div id="cabecera">
+    <div>
+      <h1 class="lang" key="Automata">Autómata</h1>
+      <label class="lang" key="Velocidad" for="velocidad">Velocidad</label>
+      <select name="velocidad" id="velocidad" size="1">
+        <option value="2000">x0.25</option>
+        <option value="1250">x0.5</option>
+        <option value="1000" selected>x1</option>
+        <option value="750">x1.5</option>
+        <option value="500">x2</option>
+      </select>
+    </div>
+    <div>
+      <h3  class="lang " key="Titulo">Verifique una palabra</h3>
+      <input type="text" name="btn-verificar" id="btnText-verificar" placeholder="a(ab)*b &Union; ba*">
+      <input type="button" value="Verificar" id="verificar" class="btn-primary lang">
+      <h2 id="resultado" class="lang"></h2>
+    </div>
+    <div>
+      <h3 class="lang" key="Ejemplos">Ejemplos</h3>
+        <div class="container">
+          <div class="row" id="ejemplos">
+            <p class="col-3">abbb</p>
+            <p class="col-3">baaaaaaa</p>
+            <p class="col-3">aaabbbb</p>
+            <p class="col-3">ba</p>
+            <p class="col-3">aaabbb</p>
+          </div>
+      </div>
+    </div>
+    <div class="idiomas">
+      <h3 class="lang" key="Idiomas">Idiomas: </h3>
+      <button class="translate" id="Es" title="Español"></button>
+      <button class="translate" id="En" title="English"></button>
+      <button class="translate" id="Fr" title="Français"></button>
+      <button class="translate" id="中国" title="中国"></button>
+      <button class="translate" id="De" title="Deutsch"></button>
+      <button class="translate" id="Po" title="português"></button>
+    </div>
+  </div>
+  <!-- This top nav is not part of the sample code -->
+  <nav id="navTop" class="w-full z-30 top-0 text-white bg-nwoods-primary">
+    <hr class="border-b border-gray-600 opacity-50 my-0 py-0" />
+  </nav>
+  <div class="md:flex flex-col md:flex-row md:min-h-screen w-full max-w-screen-xl mx-auto">
+    <div id="navSide" class="flex flex-col w-full md:w-48 text-gray-700 bg-white flex-shrink-0"></div>
+    <!-- * * * * * * * * * * * * * -->
+    <!-- Start of GoJS sample code -->
+    <script src="js/codigo.js"></script>
+    <script src="librerias/go.js"></script>
+    <div class="p-4 w-full">
+  
+        
+  <div id="sample">
+    <div id="myDiagramDiv" style="border: solid 1px black; width: 100%; height: 460px; background: whitesmoke"></div>
+      <div hidden>
+        <br><br>
+        <button id="SaveButton" onclick="save()">Save</button>  
+        <button onclick="load()">Load</button>
+        Diagram Model saved in JSON format:
+      </div>
+      <textarea id="mySavedModel" style="width:100%;height:300px" hidden>
+{ "class": "go.GraphLinksModel",
+  "nodeKeyProperty": "id",
+  "nodeDataArray": [
+  {"id":-1, "loc":"155 -138", "category":"Start"},
+  {"id":0, "loc":"190 15", "text":"q0"},
+  {"id":1, "loc":"353 32", "text":"q1"},
+  {"id":2, "loc":"250 166", "text":"q2"},
+  {"id":-2, "loc":"-50 160", "category":"End"}
+  ],
+  "linkDataArray": [
+    { "from": -1, "to": 0, "text": "Initial state" },
+    { "from": 0, "to": 1,  "text": "b" },
+    { "from": 0, "to": 0,  "text": "a" },
+    { "from": 1, "to": 0,  "text": "a" },
+    { "from": 1, "to": 1,  "text": "b"},
+    { "from": 0, "to": 2,  "text": "B"},
+    { "from": 1, "to": 2,  "text": "B"}
+  ]
+}
+    </textarea>
+    </div>
+  </div>
+    </div>
+    <!-- * * * * * * * * * * * * * -->
+    <!--  End of GoJS sample code  -->
+  </div>
+</body>
+<!--  This script is part of the gojs.net website, and is not needed to run the sample -->
+<script src="../assets/js/goSamples.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/script.js" charset="utf-8"></script>
+    <script src="js/codigo2.js"></script>
+</html>
