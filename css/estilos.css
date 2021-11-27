@@ -19,6 +19,10 @@ body{
     color: black;
 }
 
+h1{
+    font-size: 33px;
+}
+
 #resultado{
     font-size: 1.5rem;
 }

@@ -1,7 +1,12 @@
 let verificar = document.getElementById("verificar");
+let texto;
+let posicion;
 
 verificar.onclick = ()=>{ 
-    let texto = document.getElementById("btnText-verificar").value;
+    posicion = 200;
+    texto = document.getElementById("btnText-verificar").value;
+    draw(texto);
+    dibujarFlecha();
     let regExp = new RegExp("[abB]+","g");
     regExp = regExp.exec(texto);
     document.getElementById("resultado").innerHTML = "";
@@ -29,16 +34,37 @@ function verificarPalabra(texto, indice, numNodo, tiempo) {
             if(indice < texto.length){
                 let aristas = nodo.findTreeChildrenLinks();
                 let results = aristas.ub._dataArray.filter(function (arista) { return arista.data.text == texto.charAt(indice) && arista.fromNode == nodo;});   
-                if(results.length == 0){
-                    descolorear(myDiagram, true);
-                    // return esAceptado(nodo, false);
-                } else if(results[0].data.text == texto.charAt(indice)){
+                if(results[0].data.text == texto.charAt(indice)){
                     pintarRecorrido(results[0]);
+                    moverCinta(indice, results);
                     return verificarPalabra(texto, indice + 1, results[0].toNode.data.id, tiempo);
                 }
-            }else{  }
+            }else{ return 0;  }
         }, tiempo);
     }, tiempo/2)
+}
+
+function moverCinta(indice, results){
+    switch (results[0].toNode.data.id) {
+        case 0:
+            posicion += -55;
+            draw(texto, posicion);         
+            break;
+        case 1:
+            texto = texto.replaceAt(indice, "a");
+            posicion += -55;
+            draw(texto, posicion);         
+            break;
+        case 2:
+            indice+= texto.length + 1;
+            posicion += 55;
+            draw(texto, posicion);
+            break;    
+        default:
+            posicion += 55;
+            draw(texto, posicion);         
+            break;
+    }
 }
 
 function pintarRecorrido(arista){
@@ -76,22 +102,6 @@ function descolorear(diagrama, limpiarTodo = false){
     }
 }
 
-// function esAceptado(nodo, vertice = true){
-//     if((nodo.data.id == 3 || nodo.data.id == 2) && vertice){
-//         document.getElementById("resultado").innerHTML = "Estado de aceptación";
-//         document.getElementById("resultado").setAttribute("key","aceptacion");
-//         document.getElementById("resultado").setAttribute("style","color: rgb(2, 172, 11);");
-//         idioma();
-//         return 1;
-//     }else{
-//         document.getElementById("resultado").innerHTML = "Estado de NO aceptación";
-//         document.getElementById("resultado").setAttribute("key","noAceptacion");
-//         document.getElementById("resultado").setAttribute("style", "color: rgb(173, 0, 0);");
-//         idioma();
-//         return 0;
-//     }
-// }
-
 function mostrarError() {
     document.getElementById("resultado").innerHTML = "Hay simbolos que no pertenecen al lenguaje";
     document.getElementById("resultado").setAttribute("style", "color: rgb(173, 0, 0);");
@@ -123,4 +133,8 @@ function idioma() {
         default:
             break;
     }
+}
+
+String.prototype.replaceAt=function(index, replacement) {
+    return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 }

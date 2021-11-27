@@ -6,14 +6,15 @@
 <meta name="description" content="A finite state machine chart with editable and interactive features."/> 
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/estilos.css">
+<script src="js/canvas.js"></script>
+<script src="js/canvas2.js"></script>
 <!-- Copyright 1998-2021 by Northwoods Software Corporation. -->
 <title class="lang">Autómata</title>
 </head>
-
 <body>   
   <div id="cabecera">
     <div>
-      <h1 class="lang" key="Automata">Autómata</h1>
+      <h1 class="lang" key="Maquina">Máquina de Turing</h1>
       <label class="lang" key="Velocidad" for="velocidad">Velocidad</label>
       <select name="velocidad" id="velocidad" size="1">
         <option value="2000">x0.25</option>
@@ -24,8 +25,8 @@
       </select>
     </div>
     <div>
-      <h3  class="lang " key="Titulo">Verifique una palabra</h3>
-      <input type="text" name="btn-verificar" id="btnText-verificar" placeholder="a(ab)*b &Union; ba*">
+      <h3  class="lang " key="Titulo">Inserte una palabra</h3>
+      <input type="text" name="btn-verificar" id="btnText-verificar" placeholder="[ab]+B*">
       <input type="button" value="Verificar" id="verificar" class="btn-primary lang">
       <h2 id="resultado" class="lang"></h2>
     </div>
@@ -33,11 +34,11 @@
       <h3 class="lang" key="Ejemplos">Ejemplos</h3>
         <div class="container">
           <div class="row" id="ejemplos">
-            <p class="col-3">abbb</p>
-            <p class="col-3">baaaaaaa</p>
-            <p class="col-3">aaabbbb</p>
-            <p class="col-3">ba</p>
-            <p class="col-3">aaabbb</p>
+            <p class="col-3">abbbB</p>
+            <p class="col-3">baaaaaaaB</p>
+            <p class="col-3">aaabbbbB</p>
+            <p class="col-3">baB</p>
+            <p class="col-3">aaabbbB</p>
           </div>
       </div>
     </div>
@@ -99,6 +100,10 @@
     <!-- * * * * * * * * * * * * * -->
     <!--  End of GoJS sample code  -->
   </div>
+  <div id="divCanvas">
+    <canvas id="canvas" width="900px" height="150px" style="position: absolute; left: 325px;"></canvas>
+    <canvas id="canvas2" width="900px" height="150px" style="position: absolute; left: 325px;"></canvas>
+  </div >
 </body>
 <!--  This script is part of the gojs.net website, and is not needed to run the sample -->
 <script src="../assets/js/goSamples.js"></script>
