@@ -7,7 +7,7 @@ verificar.onclick = ()=>{
     texto = document.getElementById("btnText-verificar").value;
     draw(texto);
     dibujarFlecha();
-    let regExp = new RegExp("[abB]+","g");
+    let regExp = new RegExp("[abB ]+","g");
     regExp = regExp.exec(texto);
     document.getElementById("resultado").innerHTML = "";
     descolorear(myDiagram, true);
@@ -34,36 +34,57 @@ function verificarPalabra(texto, indice, numNodo, tiempo) {
             if(indice < texto.length){
                 let aristas = nodo.findTreeChildrenLinks();
                 let results = aristas.ub._dataArray.filter(function (arista) { return arista.data.text == texto.charAt(indice) && arista.fromNode == nodo;});   
-                if(results[0].data.text == texto.charAt(indice)){
-                    pintarRecorrido(results[0]);
-                    moverCinta(indice, results);
-                    return verificarPalabra(texto, indice + 1, results[0].toNode.data.id, tiempo);
+                try {
+                    if(results[0].data.text == texto.charAt(indice)){
+                        pintarRecorrido(results[0]);
+                        moverCinta(indice, results);
+                        return verificarPalabra(texto, indice + 1, results[0].toNode.data.id, tiempo);
+                    }
+                } catch (error) {
+                    if(error instanceof TypeError){
+                        moverCinta(indice);
+                        return verificarPalabra(texto, indice + 1, nodo.data.id, tiempo);
+                    }
                 }
-            }else{ return 0;  }
+            }else{ return volverInicio(tiempo);  }
         }, tiempo);
     }, tiempo/2)
 }
 
-function moverCinta(indice, results){
-    switch (results[0].toNode.data.id) {
-        case 0:
-            posicion += -55;
-            draw(texto, posicion);         
-            break;
-        case 1:
-            texto = texto.replaceAt(indice, "a");
-            posicion += -55;
-            draw(texto, posicion);         
-            break;
-        case 2:
-            indice+= texto.length + 1;
+function volverInicio(tiempo){
+    while(posicion < 200){
+        window.setTimeout(()=>{
             posicion += 55;
             draw(texto, posicion);
-            break;    
-        default:
-            posicion += 55;
-            draw(texto, posicion);         
-            break;
+        }, tiempo);
+    }
+}
+
+function moverCinta(indice, results = 0){
+    if(results != 0){
+        switch (results[0].toNode.data.id) {
+            case 0:
+                posicion += -55;
+                draw(texto, posicion);         
+                break;
+            case 1:
+                texto = texto.replaceAt(indice, "a");
+                posicion += -55;
+                draw(texto, posicion);         
+                break;
+            case 2:
+                indice+= texto.length + 1;
+                posicion += 55;
+                draw(texto, posicion);
+                break;    
+            default:
+                posicion += 55;
+                draw(texto, posicion);         
+                break;
+        }
+    }else{
+        posicion += -55;
+        draw(texto, posicion);
     }
 }
 

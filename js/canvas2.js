@@ -8,6 +8,7 @@ function dibujarFlecha(x = 200) {
       ctx.strokeStill = "black";
     }
 }
+
 function crearFlecha(ctx, x){
     ctx.beginPath();
     ctx.moveTo(x+15,100);
