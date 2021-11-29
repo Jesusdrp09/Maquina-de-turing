@@ -52,12 +52,14 @@ function verificarPalabra(texto, indice, numNodo, tiempo) {
 }
 
 function volverInicio(tiempo){
-    while(posicion < 200){
+    if(posicion < 200){
+        posicion += 55;
         window.setTimeout(()=>{
-            posicion += 55;
             draw(texto, posicion);
+            return volverInicio(tiempo);
         }, tiempo);
     }
+    return 0;
 }
 
 function moverCinta(indice, results = 0){
